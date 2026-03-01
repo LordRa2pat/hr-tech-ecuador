@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --color-penal-red: #dc2626;
+  --color-penal-amber: #d97706;
+  --color-surface-card: rgba(30, 41, 59, 0.7);
+}
+
+@layer base {
+  body {
+    background-color: #0f172a;
+    background-image:
+      radial-gradient(ellipse at top right, rgba(220, 38, 38, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(217, 119, 6, 0.06), transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+.glass-panel {
+  background: var(--color-surface-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.input-field {
+  @apply w-full bg-slate-800/80 border border-slate-700/80 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all;
+}
+
+.label-text {
+  @apply block text-sm font-medium text-slate-400 mb-1.5;
+}
+
+.btn-primary {
+  @apply w-full bg-gradient-to-r from-red-600 to-amber-600 text-white font-bold py-4 px-6 rounded-xl hover:from-red-500 hover:to-amber-500 transition-all duration-300 flex items-center justify-center shadow-lg shadow-red-900/30;
+}
+
+.btn-secondary {
+  @apply w-full bg-slate-800 text-slate-200 border border-slate-700 font-bold py-4 px-6 rounded-xl hover:bg-slate-700 transition-all duration-300 flex items-center justify-center;
+}
+
+.tab-active {
+  @apply bg-red-600/20 text-red-400 border-red-500;
+}
+
+.tab-inactive {
+  @apply bg-slate-800/40 text-slate-400 border-slate-700 hover:bg-slate-700/40 hover:text-slate-300;
+}
+
+.ad-skeleton {
+  @apply w-full bg-slate-800/50 animate-pulse rounded-lg flex items-center justify-center min-h-[90px] border border-slate-700/50;
+}

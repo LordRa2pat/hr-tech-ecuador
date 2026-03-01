@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #2563eb;
+  --color-brand-indigo: #4f46e5;
+  --color-surface-light: #ffffff;
+  --color-surface-dark: rgba(30, 41, 59, 0.8);
+}
+
+@layer base {
+  body {
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(ellipse at top right, rgba(37, 99, 235, 0.05), transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(79, 70, 229, 0.05), transparent 50%);
+  }
+
+  .dark body {
+    background-color: #0f172a;
+    background-image:
+      radial-gradient(ellipse at top right, rgba(37, 99, 235, 0.15), transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(79, 70, 229, 0.15), transparent 50%);
+  }
+}
+
+.glass-panel {
+  background: var(--color-surface-light);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(226, 232, 240, 1);
+}
+
+.dark .glass-panel {
+  background: var(--color-surface-dark);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.input-field {
+  @apply w-full bg-white dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700/80 rounded-lg px-4 py-3 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all;
+}
+
+.label-text {
+  @apply block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1.5;
+}
+
+.btn-primary {
+  @apply w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 flex items-center justify-center shadow-lg shadow-blue-900/20 dark:shadow-blue-900/40;
+}
+
+.tab-active {
+  @apply bg-blue-50 dark:bg-blue-600/20 text-blue-700 dark:text-blue-400 border-blue-500;
+}
+
+.tab-inactive {
+  @apply bg-slate-50 dark:bg-slate-800/40 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700/40 hover:text-slate-700 dark:hover:text-slate-300;
+}
+
+.ad-skeleton {
+  @apply w-full bg-slate-200 dark:bg-slate-800 animate-pulse rounded-lg flex items-center justify-center min-h-[90px] border border-slate-300 dark:border-slate-700;
+}

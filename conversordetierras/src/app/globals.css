@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #15803d;
+  --color-brand-stone: #44403c;
+  --color-surface-light: #ffffff;
+  --color-surface-dark: rgba(28, 25, 23, 0.8);
+}
+
+@layer base {
+  body {
+    background-color: #f9fbfa;
+    background-image:
+      radial-gradient(ellipse at top right, rgba(21, 128, 61, 0.05), transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(120, 113, 108, 0.05), transparent 50%);
+  }
+
+  .dark body {
+    background-color: #0c0a09;
+    background-image:
+      radial-gradient(ellipse at top right, rgba(21, 128, 61, 0.15), transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(120, 113, 108, 0.15), transparent 50%);
+  }
+}
+
+.glass-panel {
+  background: var(--color-surface-light);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(231, 229, 228, 1);
+}
+
+.dark .glass-panel {
+  background: var(--color-surface-dark);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.input-field {
+  @apply w-full bg-white dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 rounded-lg px-4 py-3 text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all;
+}
+
+.label-text {
+  @apply block text-sm font-semibold text-stone-700 dark:text-stone-400 mb-1.5;
+}
+
+.btn-primary {
+  @apply w-full bg-gradient-to-r from-green-700 to-emerald-700 text-white font-bold py-4 px-6 rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 flex items-center justify-center shadow-lg shadow-green-900/20 dark:shadow-green-950/40;
+}
+
+.ad-skeleton {
+  @apply w-full bg-stone-200 dark:bg-stone-900 animate-pulse rounded-lg flex items-center justify-center min-h-[90px] border border-stone-300 dark:border-stone-800;
+}
