@@ -5,12 +5,16 @@ import { JUBILACION_PATRONAL, JUBILACION_IESS, SBU_2026 } from '../constants/leg
 export interface DatosPatronal {
     aniosTrabajados: number;
     mejoresSueldos: number[]; // Los 5 mejores sueldos anuales del trabajador
+    edadJubilacion: number;
+    sexo: 'm' | 'f';
 }
 
 export interface ResultadoPatronal {
     cumpleRequisito: boolean;
     aniosFaltantes: number;
-    promedioMejoresAnios: number;
+    promedioMejoresAnios: number; // Promedio de remuneración anual de los últimos 5 años
+    haberIndividual: number;
+    pensionAnual: number;
     pensionMensualEstimada: number;
     mensaje: string;
 }
@@ -19,26 +23,44 @@ export function calcularJubilacionPatronal(datos: DatosPatronal): ResultadoPatro
     const cumple = datos.aniosTrabajados >= JUBILACION_PATRONAL.ANIOS_MINIMOS;
     const faltantes = Math.max(0, JUBILACION_PATRONAL.ANIOS_MINIMOS - datos.aniosTrabajados);
 
-    // Promedio de los 5 mejores años de remuneración anual → mensual
+    // 1. Promedio de los últimos 5 años de remuneración anual
     const sueldosOrdenados = [...datos.mejoresSueldos].sort((a, b) => b - a).slice(0, JUBILACION_PATRONAL.MEJORES_ANIOS_PROMEDIO);
     const promedioAnual = sueldosOrdenados.length > 0
         ? sueldosOrdenados.reduce((s, v) => s + v, 0) / sueldosOrdenados.length
         : 0;
-    const promedioMensual = promedioAnual / 12;
 
-    // Pensión patronal: porcentaje del promedio según años de servicio
-    // Coeficiente simplificado: proporcional al tiempo trabajado sobre 25 años
-    const coeficiente = Math.min(datos.aniosTrabajados / JUBILACION_PATRONAL.ANIOS_MINIMOS, 1);
-    const pensionMensual = cumple ? promedioMensual * coeficiente : 0;
+    // 2. Haber Individual de Jubilación (5% del promedio * años de servicio)
+    const haberIndividual = (promedioAnual * 0.05) * datos.aniosTrabajados;
+
+    // 3. Obtener Coeficiente de la Tabla Art. 218
+    const edadBusqueda = Math.min(Math.max(datos.edadJubilacion, 39), 78) as keyof typeof JUBILACION_PATRONAL.COEFICIENTES_ART_218;
+    const coefData = JUBILACION_PATRONAL.COEFICIENTES_ART_218[edadBusqueda];
+    const coeficiente = datos.sexo === 'm' ? coefData.m : coefData.f;
+
+    // 4. Pensión Anual y Mensual
+    let pensionAnual = haberIndividual / coeficiente;
+    let pensionMensual = pensionAnual / 12;
+
+    // 5. Aplicar Límites Legales (Art. 216 Regla 2)
+    // No mayor a 1 SBU ($482) ni inferior a $30
+    if (cumple) {
+        if (pensionMensual > SBU_2026) pensionMensual = SBU_2026;
+        if (pensionMensual < JUBILACION_PATRONAL.PENSION_MINIMA) pensionMensual = JUBILACION_PATRONAL.PENSION_MINIMA;
+    } else {
+        pensionMensual = 0;
+        pensionAnual = 0;
+    }
 
     return {
         cumpleRequisito: cumple,
         aniosFaltantes: faltantes,
-        promedioMejoresAnios: parseFloat(promedioMensual.toFixed(2)),
+        promedioMejoresAnios: parseFloat(promedioAnual.toFixed(2)),
+        haberIndividual: parseFloat(haberIndividual.toFixed(2)),
+        pensionAnual: parseFloat(pensionAnual.toFixed(2)),
         pensionMensualEstimada: parseFloat(pensionMensual.toFixed(2)),
         mensaje: cumple
-            ? `Con ${datos.aniosTrabajados} años de servicio, cumples el requisito de jubilación patronal.`
-            : `Te faltan ${faltantes} año(s) para alcanzar los ${JUBILACION_PATRONAL.ANIOS_MINIMOS} años requeridos.`,
+            ? `Cálculo realizado según Art. 216 y 218 del C.T. Coeficiente aplicado: ${coeficiente} (${datos.sexo === 'm' ? 'Hombre' : 'Mujer'}, ${datos.edadJubilacion} años).`
+            : `Te faltan ${faltantes} año(s) para alcanzar los ${JUBILACION_PATRONAL.ANIOS_MINIMOS} años requeridos para la jubilación patronal.`,
     };
 }
 

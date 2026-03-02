@@ -17,6 +17,8 @@ export default function SimuladorJubilacion() {
     // Patronal State
     const [aniosTrabajados, setAniosTrabajados] = useState('');
     const [sueldosTexto, setSueldosTexto] = useState(''); // Sueldos anuales separados por coma
+    const [sexo, setSexo] = useState<'m' | 'f'>('m');
+    const [edadJubilacion, setEdadJubilacion] = useState('65');
     const [resultadoPatronal, setResultadoPatronal] = useState<ResultadoPatronal | null>(null);
 
     const formatCurrency = (v: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(v);
@@ -36,6 +38,8 @@ export default function SimuladorJubilacion() {
         setResultadoPatronal(calcularJubilacionPatronal({
             aniosTrabajados: parseInt(aniosTrabajados) || 0,
             mejoresSueldos: sueldos,
+            sexo,
+            edadJubilacion: parseInt(edadJubilacion) || 60
         }));
     };
 
@@ -93,6 +97,19 @@ export default function SimuladorJubilacion() {
                             <input type="text" required value={sueldosTexto} onChange={e => setSueldosTexto(e.target.value)} className="input-field text-xl py-4 bg-slate-800 text-white border-slate-500" placeholder="18000, 19200, 20400, 21600, 22800" />
                             <p className="text-sm text-slate-300 mt-2 font-medium italic">Separa los valores por comas.</p>
                         </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="label-text text-white font-bold mb-2 block">Sexo</label>
+                                <select value={sexo} onChange={e => setSexo(e.target.value as 'm' | 'f')} className="input-field bg-slate-800">
+                                    <option value="m">Hombre</option>
+                                    <option value="f">Mujer</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="label-text text-white font-bold mb-2 block">Edad de Jubilación</label>
+                                <input type="number" min="39" max="78" value={edadJubilacion} onChange={e => setEdadJubilacion(e.target.value)} className="input-field bg-slate-800" />
+                            </div>
+                        </div>
                         <button type="submit" className="btn-primary py-5 text-2xl font-black bg-amber-600 hover:bg-amber-500 text-white shadow-lg transition-transform hover:scale-105 active:scale-95">Simular Patronal</button>
                     </form>
                 </div>
@@ -142,12 +159,17 @@ export default function SimuladorJubilacion() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-lg">
                             <div className="bg-slate-800 p-5 rounded-xl border-2 border-slate-700 shadow-inner">
-                                <span className="text-sm text-slate-400 block font-bold mb-1">Promedio Mensual (5 Mejores)</span>
+                                <span className="text-sm text-slate-400 block font-bold mb-1">Promedio Anual (5 Mejores)</span>
                                 <span className="text-2xl font-black text-white">{formatCurrency(resultadoPatronal.promedioMejoresAnios)}</span>
                             </div>
                             <div className="bg-slate-800 p-5 rounded-xl border-2 border-slate-700 shadow-inner">
                                 <span className="text-sm text-slate-400 block font-bold mb-1">Años Registrados</span>
                                 <span className="text-3xl font-black text-white">{aniosTrabajados}</span>
+                            </div>
+                            <div className="bg-slate-800 p-5 rounded-xl border-2 border-slate-700 shadow-inner md:col-span-2">
+                                <span className="text-sm text-slate-400 block font-bold mb-1">Haber Individual (Art. 216)</span>
+                                <span className="text-3xl font-black text-amber-400">{formatCurrency(resultadoPatronal.haberIndividual)}</span>
+                                <p className="text-[10px] text-slate-500 mt-1 uppercase tracking-tighter">Fórmula: (Promedio * 0.05) * Años Servicio</p>
                             </div>
                         </div>
                     </div>
