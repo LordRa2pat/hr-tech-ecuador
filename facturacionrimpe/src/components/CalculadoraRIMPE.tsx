@@ -68,8 +68,8 @@ export default function CalculadoraRIMPE() {
                         <div>
                             <label className="label-text">Ingresos Brutos Anuales (Proyección en USD)</label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-mono">$</span>
-                                <input type="number" step="0.01" min="1" required value={ingresosTotales} onChange={e => setIngresosTotales(e.target.value)} className="input-field pl-8 font-mono text-lg" placeholder="15000.00" />
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                                <input type="number" step="0.01" min="1" required value={ingresosTotales} onChange={e => setIngresosTotales(e.target.value)} className="input-field pl-12 font-mono text-lg" placeholder="15000.00" />
                             </div>
                             <p className="text-xs text-slate-500 mt-2">No incluyas el IVA en tu cálculo de ingresos brutos.</p>
                         </div>
@@ -105,8 +105,17 @@ export default function CalculadoraRIMPE() {
                         <div>
                             <label className="label-text">Subtotal de la Venta (Sin Impuestos)</label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-mono">$</span>
-                                <input type="number" step="0.01" min="1" required value={subtotalFactura} onChange={e => setSubtotalFactura(e.target.value)} className="input-field pl-8 font-mono text-lg" placeholder="500.00" />
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    min="0"
+                                    required
+                                    value={subtotalFactura}
+                                    onChange={e => setSubtotalFactura(e.target.value)}
+                                    className="input-field pl-12"
+                                    placeholder="Ej: 15000"
+                                />
                             </div>
                         </div>
 

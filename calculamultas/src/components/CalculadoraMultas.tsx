@@ -79,8 +79,8 @@ export default function CalculadoraMultas() {
                         <div>
                             <label className="label-text">Monto de la Obligación Evadida o Atrasada (USD)</label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-mono">$</span>
-                                <input type="number" step="0.01" min="1" required value={obligacionSRI} onChange={e => setObligacionSRI(e.target.value)} className="input-field pl-8 font-mono text-lg" placeholder="100.00" />
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                                <input type="number" step="0.01" min="1" required value={obligacionSRI} onChange={e => setObligacionSRI(e.target.value)} className="input-field pl-12 font-mono text-lg" placeholder="100.00" />
                             </div>
                         </div>
 

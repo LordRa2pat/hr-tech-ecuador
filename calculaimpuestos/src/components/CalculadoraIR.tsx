@@ -49,7 +49,7 @@ export default function CalculadoraIR() {
                             Ingresos Anuales Gravados (USD)
                         </label>
                         <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
                             <input
                                 id="ingresos"
                                 type="number"
@@ -59,7 +59,7 @@ export default function CalculadoraIR() {
                                 required
                                 value={ingresosTotales}
                                 onChange={(e) => setIngresosTotales(e.target.value)}
-                                className="input-field pl-8"
+                                className="input-field pl-12"
                                 placeholder="Ej: 24000.00"
                             />
                         </div>
@@ -72,17 +72,18 @@ export default function CalculadoraIR() {
                                 Gastos Personales Proyectados
                             </label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
                                 <input
                                     id="gastos"
                                     type="number"
                                     inputMode="decimal"
                                     step="0.01"
                                     min="0"
+                                    required
                                     value={gastos}
-                                    onChange={(e) => setGastos(e.target.value)}
-                                    className="input-field pl-8"
-                                    placeholder="Ej: 6000.00"
+                                    onChange={e => setGastos(e.target.value)}
+                                    className="input-field pl-12"
+                                    placeholder="Ej: 35000"
                                 />
                             </div>
                             <p className="text-[10px] text-slate-500 mt-1">Límite legal: {formatearMoneda(CANASTA_BASICA_2026 * 7)}</p>

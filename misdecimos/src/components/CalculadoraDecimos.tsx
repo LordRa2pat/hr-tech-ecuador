@@ -52,18 +52,16 @@ export default function CalculadoraDecimos() {
                             Salario mensual promedio (USD)
                         </label>
                         <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
                             <input
-                                id="salario"
                                 type="number"
-                                inputMode="decimal"
                                 step="0.01"
-                                min="0"
+                                min="1"
                                 required
                                 value={salarioMensual}
-                                onChange={(e) => setSalarioMensual(e.target.value)}
-                                className="input-field pl-8"
-                                placeholder="Ej: 460.00"
+                                onChange={e => setSalarioMensual(e.target.value)}
+                                className="input-field pl-12 text-lg"
+                                placeholder="Ej: 482.00"
                             />
                         </div>
                         <p className="text-xs text-slate-400 mt-1">Incluye sueldo base, horas extras y comisiones fijas.</p>

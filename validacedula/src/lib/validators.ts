@@ -1,4 +1,5 @@
 import { PROVINCIAS, ValidacionResult } from '../constants/legal';
+export type { ValidacionResult };
 
 export function validarIdentificacion(numero: string): ValidacionResult {
     // Limpiar input y validar que solo sean números

@@ -64,7 +64,7 @@ export function calcularLiquidacion(datos: DatosLiquidacion): ResultadosLiquidac
     // 2. DÉCIMO CUARTO PROPORCIONAL
     // Costa: 1 mar - 28/29 feb
     // Sierra: 1 ago - 31 jul
-    let mesInicioD14 = datos.region === 'COSTA' ? 2 : 7; // 2=Marzo, 7=Agosto
+    let mesInicioD14 = datos.region === 'Costa' ? 2 : 7; // 2=Marzo, 7=Agosto
     let inicioDecimoCuarto = new Date(datos.fechaFin.getFullYear(), mesInicioD14, 1);
 
     if (datos.fechaFin < inicioDecimoCuarto) {
