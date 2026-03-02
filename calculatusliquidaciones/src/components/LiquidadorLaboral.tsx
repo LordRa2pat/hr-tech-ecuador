@@ -77,7 +77,7 @@ export default function LiquidadorLaboral() {
                             <div>
                                 <label className="label-text">Remuneración Mensual Unificada (USD)</label>
                                 <div className="relative">
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                                    {!remuneracion && <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>}
                                     <input
                                         type="number"
                                         step="0.01"
@@ -85,7 +85,7 @@ export default function LiquidadorLaboral() {
                                         required
                                         value={remuneracion}
                                         onChange={e => setRemuneracion(e.target.value)}
-                                        className="input-field pl-12"
+                                        className={`input-field ${!remuneracion ? 'pl-12' : 'pl-4'}`}
                                         placeholder="Ej: 800.00"
                                     />
                                 </div>

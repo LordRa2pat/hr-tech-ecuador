@@ -52,7 +52,7 @@ export default function CalculadoraDecimos() {
                             Salario mensual promedio (USD)
                         </label>
                         <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                            {!salarioMensual && <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>}
                             <input
                                 type="number"
                                 step="0.01"
@@ -60,7 +60,7 @@ export default function CalculadoraDecimos() {
                                 required
                                 value={salarioMensual}
                                 onChange={e => setSalarioMensual(e.target.value)}
-                                className="input-field pl-12 text-lg"
+                                className={`input-field ${!salarioMensual ? 'pl-12' : 'pl-4'} text-lg`}
                                 placeholder="Ej: 482.00"
                             />
                         </div>

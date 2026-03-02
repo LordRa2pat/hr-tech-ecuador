@@ -49,7 +49,7 @@ export default function CalculadoraIR() {
                             Ingresos Anuales Gravados (USD)
                         </label>
                         <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                            {!ingresosTotales && <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>}
                             <input
                                 id="ingresos"
                                 type="number"
@@ -59,7 +59,7 @@ export default function CalculadoraIR() {
                                 required
                                 value={ingresosTotales}
                                 onChange={(e) => setIngresosTotales(e.target.value)}
-                                className="input-field pl-12"
+                                className={`input-field ${!ingresosTotales ? 'pl-12' : 'pl-4'}`}
                                 placeholder="Ej: 24000.00"
                             />
                         </div>
@@ -72,7 +72,7 @@ export default function CalculadoraIR() {
                                 Gastos Personales Proyectados
                             </label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                                {!gastos && <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>}
                                 <input
                                     id="gastos"
                                     type="number"
@@ -82,7 +82,7 @@ export default function CalculadoraIR() {
                                     required
                                     value={gastos}
                                     onChange={e => setGastos(e.target.value)}
-                                    className="input-field pl-12"
+                                    className={`input-field ${!gastos ? 'pl-12' : 'pl-4'}`}
                                     placeholder="Ej: 35000"
                                 />
                             </div>

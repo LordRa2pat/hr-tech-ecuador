@@ -65,8 +65,8 @@ export default function SimuladorJubilacion() {
                         <div>
                             <label className="label-text text-xl text-white font-bold mb-3 block">Sueldo Mensual Actual (USD)</label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-2xl font-bold">$</span>
-                                <input type="number" step="0.01" min="1" required value={sueldoActual} onChange={e => setSueldoActual(e.target.value)} className="input-field pl-14 text-2xl py-5 bg-slate-800 text-white border-slate-500" placeholder="Ej: 1200.00" />
+                                {!sueldoActual && <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-2xl font-bold">$</span>}
+                                <input type="number" step="0.01" min="1" required value={sueldoActual} onChange={e => setSueldoActual(e.target.value)} className={`input-field ${!sueldoActual ? 'pl-14' : 'pl-4'} text-2xl py-5 bg-slate-800 text-white border-slate-500`} placeholder="Ej: 1200.00" />
                             </div>
                         </div>
                         <div>
