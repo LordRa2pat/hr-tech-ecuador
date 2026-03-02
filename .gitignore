@@ -4,6 +4,7 @@
 **/build/
 **/*.env*
 **/.vercel/
+_skills_temp/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
